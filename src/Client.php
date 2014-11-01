@@ -35,11 +35,15 @@ class Client
 	/**
 	 * Request data of a HR number
 	 *
-	 * @param string 			$num
+	 * @param string 		$num	Unternehmensnummer
+	 *
 	 * @return ClanCats\ZefixJSON\Request\Detail
 	 */
-	public function request( $num )
+	public function detail( $num )
 	{
-		return new Request\Detail( $num );
+		return Request\Detail::create( $this )
+			->prepare( [ 'num' => $num ] )
+			->perform()
+			->result();
 	}
 }

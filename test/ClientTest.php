@@ -16,4 +16,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf( 'ClanCats\ZefixJSON\Client', $client );	
 		$this->assertInstanceOf( 'ClanCats\ZefixJSON\Configuration', $client->conf );
 	}
+	
+	/**
+	 * Tests detail request
+	 */
+	public function testDetail()
+	{
+		$client = new Client;
+		
+		$client->detail('CHE-155.686.973');
+	}
 }
