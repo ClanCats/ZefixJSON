@@ -1,4 +1,32 @@
 {
+    "name": "clancats/zefixjson",
+    "description": "Schweizer Handelsregister PHP Schnitstelle und JSON API.",
+    "keywords": [
+        "zefix",
+        "json",
+        "api",
+        "rest",
+        "switzerland"
+    ],
+    "homepage": "https://github.com/ClanCats/ZefixJSON",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mario Döring",
+            "email": "mario@clancats.com",
+            "homepage": "http://clancats.io",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "guzzlehttp/guzzle": "~5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ClanCats\\ZefixJSON\\": "src"
+        }
+    },
     "require": {
         "league/fractal": "0.9.*"
     }
