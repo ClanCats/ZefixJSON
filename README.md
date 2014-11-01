@@ -1,7 +1,9 @@
 ZefixJSON
 =========
 
-Schweizer Handelsregister PHP Schnitstelle und JSON API
+Schweizer Handelsregister PHP Client und JSON API
+
+Diese kleine Library soll den Zugang zu den öffentlichen Daten des Zefix vereinfachen.
 
 ---
 
