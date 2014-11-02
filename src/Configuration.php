@@ -11,6 +11,8 @@
  */
 namespace ClanCats\ZefixJSON;
 
+use ClanCats\ZefixJSON\Exception;
+
 class Configuration 
 {
 	/**
@@ -20,8 +22,51 @@ class Configuration
 	 */
 	protected $default_configuration_values = 
 	[
+		// the http client user agent
 		'userAgent' => null,
+		
+		// the current language
+		'langauge' => '1',
+		
+		// HR Language parameter
+		'availableLanguages' => 
+		[
+			'1' => 'de',
+			'2' => 'fr',
+			'3' => 'it',
+			'4' => 'en' 
+		],
 	];
+	
+	/**
+	 * Set modifier language 
+	 *
+	 * @param string 			$lang
+	 * @return string
+	 */
+	protected function setModifierLanguage( $lang )
+	{
+		if ( is_string( $lang ) && !is_numeric( $lang ) )
+		{
+			if ( !in_array( $lang, $this->availableLanguages ) )
+			{
+				throw new Exception( "Configuration::setLanguage - invalid language '".$lang."'." );
+			}
+			
+			$available = array_flip( $this->availableLanguages );
+			
+			$lang = $available[ $lang ];
+		}
+		else
+		{
+			if ( !in_array( $lang, array_keys( $this->availableLanguages ) ) )
+			{
+				throw new Exception( "Configuration::setLanguage - invalid language key '".$lang."'." );
+			}
+		}
+		
+		return $lang;
+	}
 	
 	/**
 	 * The current configuration
@@ -38,6 +83,8 @@ class Configuration
 	 */
 	public function __construct( $conf = [] )
 	{
+		$this->configuration = $this->default_configuration_values;
+		
 		foreach( $conf as $key => $value )
 		{
 			$this->__set( $key, $value );
@@ -68,7 +115,7 @@ class Configuration
 		
 		if ( method_exists( $this, $modifier_name ) )
 		{
-			$value = call_user_func( $this, $modifier_name );
+			$value = call_user_func_array( [ $this, $modifier_name ], [ $value ] );
 		}
 		
 		$this->configuration[$key] = $value;

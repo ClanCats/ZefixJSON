@@ -19,7 +19,7 @@ interface RequestInterface
 	 * @param array 			$params
 	 * @return self
 	 */
-	public function prepare( $params );
+	public function prepare( array $params );
 	
 	/**
 	 * Perform the request

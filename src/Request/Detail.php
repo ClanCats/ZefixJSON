@@ -29,7 +29,7 @@ class Detail extends Request implements RequestInterface
 	 * @param array 			$params
 	 * @return self
 	 */
-	public function prepare( $params )
+	public function prepare( array $params )
 	{
 		if ( !isset( $params['num'] ) || empty( $params['num'] ) )
 		{
