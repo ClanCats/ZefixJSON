@@ -30,6 +30,13 @@ class Request
 	 * @var ClanCats\ZefixJSON\Client
 	 */
 	protected $client = null;
+	
+	/**
+	 * The guzzle HTTP client
+	 *
+	 * @var GuzzleHTTP\Client
+	 */ 
+	protected $http = null;
 
 	/**
 	 * Create new Request instance
@@ -40,5 +47,6 @@ class Request
 	public function __construct( $client )
 	{
 		$this->client = $client;
+		$this->http = new \GuzzleHttp\Client;
 	}
 }

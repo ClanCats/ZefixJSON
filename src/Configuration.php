@@ -13,7 +13,7 @@ namespace ClanCats\ZefixJSON;
 
 use ClanCats\ZefixJSON\Exception;
 
-class Configuration 
+class Configuration extends DataModel
 {
 	/**
 	 * The default configuration 
@@ -35,6 +35,12 @@ class Configuration
 			'2' => 'fr',
 			'3' => 'it',
 			'4' => 'en' 
+		],
+		
+		// zefix endpoints
+		'zefix' => 
+		[
+			'search' => 'http://zefix.admin.ch/WebServices/Zefix/Zefix.asmx/SearchFirm',
 		],
 	];
 	
@@ -67,13 +73,6 @@ class Configuration
 		
 		return $lang;
 	}
-	
-	/**
-	 * The current configuration
-	 *
-	 * @var array
-	 */
-	protected $configuration = [];
 
 	/**
 	 * Create new Configuration instance
@@ -83,63 +82,11 @@ class Configuration
 	 */
 	public function __construct( $conf = [] )
 	{
-		$this->configuration = $this->default_configuration_values;
+		$this->_model_data = $this->default_configuration_values;
 		
 		foreach( $conf as $key => $value )
 		{
 			$this->__set( $key, $value );
 		}
-	}
-	
-	/**
-	 * Magic get a value from the object
-	 *
-	 * @param $key 
-	 * @return mixed
-	 */
-	public function & __get( $key ) 
-	{
-		return $this->configuration[$key];
-	}
-	
-	/**
-	 * Magic set data to the object.
-	 *
-	 * @param $key
-	 * @param $value
-	 * @return void
-	 */
-	public function __set( $key, $value ) 
-	{
-		$modifier_name = 'setModifier'.ucfirst( $key );
-		
-		if ( method_exists( $this, $modifier_name ) )
-		{
-			$value = call_user_func_array( [ $this, $modifier_name ], [ $value ] );
-		}
-		
-		$this->configuration[$key] = $value;
-	}
-	
-	/**
-	 * Magic check if data isset
-	 *
-	 * @param $key
-	 * @return bool
-	 */
-	public function __isset( $key ) 
-	{
-		return isset( $this->configuration[$key] );
-	}
-	
-	/**
-	 * Magic delete data  
-	 *
-	 * @param $key
-	 * @return void
-	 */
-	public function __unset( $key ) 
-	{
-		unset( $this->configuration[$key] );
 	}
 }
